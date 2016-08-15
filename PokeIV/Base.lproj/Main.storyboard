@@ -1,25 +1,212 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="biz-qD-0Op">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Pokemon Preview View Controller-->
+        <scene sceneID="xFn-XW-LcJ">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pokemonPreviewViewController" id="bmQ-t0-Fga" customClass="PokemonPreviewViewController" customModule="PokeIV" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="q2H-le-xUU"/>
+                        <viewControllerLayoutGuide type="bottom" id="erz-3J-6xd"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="ifJ-gK-adx">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IV 87.3%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47Y-dm-QAI">
+                                <rect key="frame" x="0.0" y="20" width="200" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fF-Pn-nrv">
+                                <rect key="frame" x="0.0" y="41" width="200" height="40"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7t-2w-Ejb" userLabel="Attack IV Bar">
+                                        <rect key="frame" x="0.0" y="0.0" width="66.5" height="10"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hoo-8f-WMu" userLabel="Bar Inner">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="10"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Hoo-8f-WMu" secondAttribute="bottom" id="Htq-Of-ErL"/>
+                                            <constraint firstItem="Hoo-8f-WMu" firstAttribute="width" secondItem="K7t-2w-Ejb" secondAttribute="width" id="JmX-ZK-HDy"/>
+                                            <constraint firstAttribute="height" constant="10" id="kVL-1e-kue"/>
+                                            <constraint firstItem="Hoo-8f-WMu" firstAttribute="leading" secondItem="K7t-2w-Ejb" secondAttribute="leading" id="mrW-GI-Lmh"/>
+                                            <constraint firstItem="Hoo-8f-WMu" firstAttribute="top" secondItem="K7t-2w-Ejb" secondAttribute="top" id="yhT-p7-2Ko"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFb-M4-dto" userLabel="Defence IV Bar">
+                                        <rect key="frame" x="66" y="0.0" width="67" height="10"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fnx-b0-qrn" userLabel="Bar Inner">
+                                                <rect key="frame" x="0.0" y="0.0" width="67" height="10"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Fnx-b0-qrn" firstAttribute="leading" secondItem="oFb-M4-dto" secondAttribute="leading" id="51R-tE-r0i"/>
+                                            <constraint firstAttribute="height" constant="10" id="In1-bg-d6c"/>
+                                            <constraint firstItem="Fnx-b0-qrn" firstAttribute="top" secondItem="oFb-M4-dto" secondAttribute="top" id="NJM-Wa-4im"/>
+                                            <constraint firstItem="Fnx-b0-qrn" firstAttribute="width" secondItem="oFb-M4-dto" secondAttribute="width" id="gbd-qK-Hfr"/>
+                                            <constraint firstAttribute="bottom" secondItem="Fnx-b0-qrn" secondAttribute="bottom" id="wod-If-mjQ"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xy-fQ-3Lg" userLabel="Stamina IV Bar">
+                                        <rect key="frame" x="133" y="0.0" width="66.5" height="10"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uee-Z3-FTB" userLabel="Bar Inner">
+                                                <rect key="frame" x="0.0" y="0.0" width="66.5" height="10"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="10" id="Rke-9p-Y3j"/>
+                                            <constraint firstItem="Uee-Z3-FTB" firstAttribute="top" secondItem="7xy-fQ-3Lg" secondAttribute="top" id="b5d-E7-ZSd"/>
+                                            <constraint firstItem="Uee-Z3-FTB" firstAttribute="leading" secondItem="7xy-fQ-3Lg" secondAttribute="leading" id="iaX-pw-Shs"/>
+                                            <constraint firstItem="Uee-Z3-FTB" firstAttribute="width" secondItem="7xy-fQ-3Lg" secondAttribute="width" id="sKb-mW-nnt"/>
+                                            <constraint firstAttribute="bottom" secondItem="Uee-Z3-FTB" secondAttribute="bottom" id="xnT-mG-pk0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="oFb-M4-dto" firstAttribute="width" secondItem="7xy-fQ-3Lg" secondAttribute="width" id="1ua-fD-6zb"/>
+                                    <constraint firstItem="7xy-fQ-3Lg" firstAttribute="leading" secondItem="oFb-M4-dto" secondAttribute="trailing" id="4Gf-wE-KJI"/>
+                                    <constraint firstItem="K7t-2w-Ejb" firstAttribute="width" secondItem="oFb-M4-dto" secondAttribute="width" id="9Qv-vd-bvV"/>
+                                    <constraint firstItem="oFb-M4-dto" firstAttribute="leading" secondItem="0fF-Pn-nrv" secondAttribute="leading" constant="89" id="PUU-gD-Kra"/>
+                                    <constraint firstItem="K7t-2w-Ejb" firstAttribute="leading" secondItem="0fF-Pn-nrv" secondAttribute="leading" id="aO5-Ai-svM"/>
+                                    <constraint firstAttribute="trailing" secondItem="7xy-fQ-3Lg" secondAttribute="trailing" id="ayf-Xw-3E1"/>
+                                    <constraint firstItem="oFb-M4-dto" firstAttribute="leading" secondItem="K7t-2w-Ejb" secondAttribute="trailing" id="bMC-XZ-FTn"/>
+                                    <constraint firstItem="K7t-2w-Ejb" firstAttribute="top" secondItem="0fF-Pn-nrv" secondAttribute="top" id="ecn-W9-JXA"/>
+                                    <constraint firstAttribute="height" constant="40" id="ez5-eH-SwX"/>
+                                    <constraint firstItem="7xy-fQ-3Lg" firstAttribute="top" secondItem="0fF-Pn-nrv" secondAttribute="top" id="jbc-Ta-CdY"/>
+                                    <constraint firstItem="oFb-M4-dto" firstAttribute="top" secondItem="0fF-Pn-nrv" secondAttribute="top" id="tJC-zg-4sd"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PUU-gD-Kra"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="47Y-dm-QAI" firstAttribute="top" secondItem="q2H-le-xUU" secondAttribute="bottom" id="Afe-Qk-ddo"/>
+                            <constraint firstAttribute="trailing" secondItem="0fF-Pn-nrv" secondAttribute="trailing" id="GnJ-xs-w1c"/>
+                            <constraint firstItem="47Y-dm-QAI" firstAttribute="leading" secondItem="ifJ-gK-adx" secondAttribute="leading" id="MSg-6g-1yh"/>
+                            <constraint firstItem="0fF-Pn-nrv" firstAttribute="top" secondItem="47Y-dm-QAI" secondAttribute="bottom" id="bxx-B1-9le"/>
+                            <constraint firstItem="0fF-Pn-nrv" firstAttribute="leading" secondItem="ifJ-gK-adx" secondAttribute="leading" id="cKd-qN-Kmp"/>
+                            <constraint firstAttribute="trailing" secondItem="47Y-dm-QAI" secondAttribute="trailing" id="to8-22-R8l"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="200" height="250"/>
+                    <connections>
+                        <outlet property="attackIVBarInner" destination="Hoo-8f-WMu" id="UUS-j3-MVK"/>
+                        <outlet property="defenceIVBarInner" destination="Fnx-b0-qrn" id="nMa-aS-lBk"/>
+                        <outlet property="globalIVLabel" destination="47Y-dm-QAI" id="0it-aj-qoU"/>
+                        <outlet property="staminaIVBarInner" destination="Uee-Z3-FTB" id="cLQ-wC-dUv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="abf-O9-EYB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1774" y="-257"/>
+        </scene>
+        <!--Pokemon Collection View Controller-->
+        <scene sceneID="AXc-qL-PUb">
+            <objects>
+                <collectionViewController storyboardIdentifier="PokemonCollectionViewControllerID" id="FG8-Xu-aPu" customClass="PokemonCollectionViewController" customModule="PokeIV" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="pLM-Qo-NIl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Aby-m0-pnW">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PokemonCell" id="ns8-Bu-DlE" customClass="PokemonCollectionViewCell" customModule="PokeIV" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="200" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="200" height="250"/>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="FG8-Xu-aPu" id="XGV-sS-sWK"/>
+                            <outlet property="delegate" destination="FG8-Xu-aPu" id="ZWh-RW-ory"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="MDl-ue-cAL"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N19-yC-KEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1052" y="-257"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dmT-qC-CVX">
+            <objects>
+                <navigationController storyboardIdentifier="NavigationViewControllerID" automaticallyAdjustsScrollViewInsets="NO" id="8cH-eq-gy9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dMb-7L-qjf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FG8-Xu-aPu" kind="relationship" relationship="rootViewController" id="k2Q-hS-Ab3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1s0-2G-hFZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="317" y="-257"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9ma-xN-S6L">
+            <objects>
+                <viewController storyboardIdentifier="ViewControllerID" id="biz-qD-0Op" customClass="ViewController" customModule="PokeIV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="15s-d0-WT4"/>
+                        <viewControllerLayoutGuide type="bottom" id="teG-Vy-ZeB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Uwa-ZN-loK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dummy!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn2-JH-uS3">
+                                <rect key="frame" x="20" y="20" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="testLabel" destination="mn2-JH-uS3" id="fko-IS-qvi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r5N-iw-com" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="317" y="497"/>
         </scene>
     </scenes>
 </document>
