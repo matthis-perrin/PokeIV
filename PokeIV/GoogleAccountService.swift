@@ -30,4 +30,15 @@ class GoogleAccountService: NSObject {
         }
     }
     
+    static func removeAccount(username: String) {
+        do {
+            let realm = try! Realm()
+            try! realm.write {
+                if let accountToDelete = realm.objectForPrimaryKey(GoogleAccount.self, key: username) {
+                    realm.delete(accountToDelete)
+                }
+            }
+        }
+    }
+    
 }

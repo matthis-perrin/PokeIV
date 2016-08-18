@@ -7,72 +7,69 @@
 //
 
 import UIKit
-
-private let reuseIdentifier = "PokemonCell"
+import PGoApi
 
 class PokemonCollectionViewController: UICollectionViewController {
 
-    var pokemons: [Pokemon] = []
+    private var _pokemons = [Pogoprotos.Data.PokemonData()]
+    private var _pokemonsById = [(num: Int32(), pokemons: [Pogoprotos.Data.PokemonData()])]
+    
+    var pokemons: [Pogoprotos.Data.PokemonData] {
+        get {
+            return _pokemons
+        }
+        set (pokemons) {
+            self._pokemons = pokemons
+            self._pokemonsById = self.getPokemonById()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView!.registerClass(PokemonCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        self.loadData()
+//        self.collectionView!.registerClass(PokemonCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView?.reloadData()
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        let byNum = self.getPokemonByNum()
-        return byNum.count
+        return self._pokemonsById.count
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let byNum = self.getPokemonByNum()
-        return byNum[section].pokemons.count
+        return self._pokemonsById[section].pokemons.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PokemonCell", forIndexPath: indexPath)
         if let cell = cell as? PokemonCollectionViewCell {
-            cell.setPokemon(self.getPokemonByNum()[indexPath.section].pokemons[indexPath.row])
-            cell.backgroundColor = UIColor.redColor()
-        } else {
-            print("ERROR")
-            cell.backgroundColor = UIColor.blueColor()
+            let pokemon = self._pokemonsById[indexPath.section].pokemons[indexPath.row]
+            cell.pokemon = pokemon
         }
-        
         return cell
     }
     
-    
-    private func loadData() {
-        self.pokemons = [
-            Pokemon(num: PokemonNum.BULBASAUR, name: "Bulbasaur", cp: 560, attack: 10, defence: 2, stamina: 8),
-            Pokemon(num: PokemonNum.CHARMANDER, name: "Charmander", cp: 570, attack: 10, defence: 2, stamina: 8),
-            Pokemon(num: PokemonNum.SQUIRTLE, name: "Squirtle", cp: 580, attack: 10, defence: 2, stamina: 8),
-            Pokemon(num: PokemonNum.PIKACHU, name: "Pikachu", cp: 590, attack: 10, defence: 2, stamina: 8),
-            Pokemon(num: PokemonNum.PIDGEY, name: "Pidgey", cp: 600, attack: 10, defence: 2, stamina: 8),
-            Pokemon(num: PokemonNum.PIDGEY, name: "Pidgey", cp: 610, attack: 10, defence: 2, stamina: 8),
-            Pokemon(num: PokemonNum.PIDGEY, name: "Pidgey", cp: 620, attack: 10, defence: 2, stamina: 8),
-//            Pokemon(num: PokemonNum.BULBASAUR, name: "Bulbasaur", cp: 630, attack: 10, defence: 2, stamina: 8),
-//            Pokemon(num: PokemonNum.BULBASAUR, name: "Bulbasaur", cp: 640, attack: 10, defence: 2, stamina: 8),
-        ]
-    }
-    
-    private func getPokemonByNum() -> [(num: PokemonNum, pokemons: [Pokemon])] {
-        var byNum = [(num: PokemonNum, pokemons: [Pokemon])]()
+    private func getPokemonById() -> [(num: Int32, pokemons: [Pogoprotos.Data.PokemonData])] {
+        var byNum = [(num: Int32(), pokemons: [Pogoprotos.Data.PokemonData()])]
         for pokemon in self.pokemons {
-            if let index = byNum.indexOf({(num: PokemonNum, _: [Pokemon]) in pokemon.num == num}) {
+            if let index = byNum.indexOf({(num: Int32, _: [Pogoprotos.Data.PokemonData]) in pokemon.pokemonId.rawValue == num}) {
                 byNum[index].pokemons.append(pokemon)
             } else {
-                byNum.append((num: pokemon.num, pokemons: [pokemon]))
+                byNum.append((num: pokemon.pokemonId.rawValue, pokemons: [pokemon]))
             }
         }
-        let byNumSorted = byNum.sort({ (tuple1: (num: PokemonNum, pokemons: [Pokemon]), tuple2: (num: PokemonNum, pokemons: [Pokemon])) -> Bool in
-            return tuple1.num.intValue < tuple2.num.intValue
+        let byNumSorted = byNum.sort({ (tuple1: (num: Int32, pokemons: [Pogoprotos.Data.PokemonData]), tuple2: (num: Int32, pokemons: [Pogoprotos.Data.PokemonData])) -> Bool in
+            return tuple1.num < tuple2.num
         })
-        return byNumSorted
+        var byNumIVSorted = byNumSorted.map { (group: (num: Int32, pokemons: Array<Pogoprotos.Data.PokemonData>)) -> (num: Int32, pokemons: Array<Pogoprotos.Data.PokemonData>) in
+            let sortedPokemons = group.pokemons.sort { (p1: Pogoprotos.Data.PokemonData, p2: Pogoprotos.Data.PokemonData) -> Bool in
+                return p1.individualAttack + p1.individualDefense + p1.individualStamina > p2.individualAttack + p2.individualDefense + p2.individualStamina
+            }
+            return (num: group.num, pokemons: sortedPokemons)
+        }
+        if byNumIVSorted.first?.num == 0 {
+            byNumIVSorted.removeAtIndex(0)
+        }
+        return byNumIVSorted
     }
 
 }
@@ -80,9 +77,9 @@ class PokemonCollectionViewController: UICollectionViewController {
 
 extension PokemonCollectionViewController : UICollectionViewDelegateFlowLayout {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 200, height: 250)
-    }
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+//        return CGSize(width: 150, height: 183)
+//    }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10, 10, 10, 10)

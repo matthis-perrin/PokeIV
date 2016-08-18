@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (3.4.1)
+  - MBProgressHUD (1.0.0)
   - PGoApi (0.1.0):
     - Alamofire (~> 3.4)
     - ProtocolBuffers-Swift (~> 3.0)
@@ -11,6 +12,7 @@ PODS:
     - Realm (= 1.0.2)
 
 DEPENDENCIES:
+  - MBProgressHUD (~> 1.0.0)
   - PGoApi (from `https://github.com/lsapan/pgoapi-swift`, branch `master`)
   - ProtocolBuffers-Swift (from `https://github.com/alexeyxo/protobuf-swift`, branch
     `ProtoBuf3.0-Swift2.0`)
@@ -34,6 +36,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   PGoApi: 8cee6dd3898aee27925cac4e9d8cdd7d154bfc68
   ProtocolBuffers-Swift: 948824656ef9f507348481655d409628b0219be0
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
