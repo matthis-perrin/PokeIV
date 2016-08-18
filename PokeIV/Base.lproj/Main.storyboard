@@ -25,34 +25,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Aby-m0-pnW">
-                            <size key="itemSize" width="150" height="183"/>
+                            <size key="itemSize" width="115" height="157"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PokemonCell" id="ns8-Bu-DlE" customClass="PokemonCollectionViewCell" customModule="PokeIV" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="140" height="183"/>
+                                <rect key="frame" x="0.0" y="0.0" width="111" height="157"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="140" height="183"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="111" height="157"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="001.png" translatesAutoresizingMaskIntoConstraints="NO" id="hoo-E2-QLN">
-                                            <rect key="frame" x="20" y="41" width="100" height="100"/>
+                                            <rect key="frame" x="18" y="41" width="75" height="75"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="100" id="RGK-uz-ATJ"/>
-                                                <constraint firstAttribute="width" constant="100" id="XER-DC-yPv"/>
+                                                <constraint firstAttribute="height" constant="75" id="RGK-uz-ATJ"/>
+                                                <constraint firstAttribute="width" constant="75" id="XER-DC-yPv"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="753" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gj-1F-9Ca">
-                                            <rect key="frame" x="55" y="151" width="30" height="21"/>
+                                            <rect key="frame" x="40.5" y="126" width="30" height="21"/>
                                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98.7%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPl-Rz-1YJ">
-                                            <rect key="frame" x="46" y="10" width="48" height="21"/>
+                                            <rect key="frame" x="31.5" y="10" width="48" height="21"/>
                                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.67429887820000001" blue="0.079711537210000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                     <constraint firstItem="4Gj-1F-9Ca" firstAttribute="top" secondItem="hoo-E2-QLN" secondAttribute="bottom" constant="10" id="fhz-zG-Rw1"/>
                                     <constraint firstItem="FPl-Rz-1YJ" firstAttribute="top" secondItem="ns8-Bu-DlE" secondAttribute="top" constant="10" id="gJe-2w-tw5"/>
                                 </constraints>
-                                <size key="customSize" width="140" height="183"/>
+                                <size key="customSize" width="111" height="157"/>
                                 <connections>
                                     <outlet property="cpLabel" destination="4Gj-1F-9Ca" id="0wJ-go-LSb"/>
                                     <outlet property="ivPercentLabel" destination="FPl-Rz-1YJ" id="99c-fu-ynH"/>

@@ -27,7 +27,6 @@ class PokemonCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.collectionView!.registerClass(PokemonCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView?.reloadData()
     }
     
@@ -77,9 +76,9 @@ class PokemonCollectionViewController: UICollectionViewController {
 
 extension PokemonCollectionViewController : UICollectionViewDelegateFlowLayout {
     
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        return CGSize(width: 150, height: 183)
-//    }
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: 111, height: 157)
+    }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10, 10, 10, 10)

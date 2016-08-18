@@ -11,9 +11,9 @@ import PGoApi
 
 let MAX_STAT = 15.0
 
-let MIN_C = (red: 1.0, green: 131.0/255.0, blue: 0.0)
-let AVG_C = (red: 1.0, green: 1.0, blue: 50.0/255.0)
-let MAX_C = (red: 66.0/255.0, green: 1.0, blue: 129.0/255.0)
+let MIN_C = (red: 193.0/255.0, green:  52.0/255.0, blue: 52.0/255.0)
+let AVG_C = (red: 255.0/255.0, green: 175.0/255.0, blue: 48.0/255.0)
+let MAX_C = (red:   0.0/255.0, green: 200.0/255.0, blue:  0.0/255.0)
 
 class PokemonCollectionViewCell: UICollectionViewCell {
     
