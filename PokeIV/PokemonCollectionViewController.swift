@@ -8,73 +8,110 @@
 
 import UIKit
 import PGoApi
+import PopupDialog
+import Presentr
 
-class PokemonCollectionViewController: UICollectionViewController {
+class PokemonCollectionViewController: UIViewController {
 
-    private var _pokemons = [Pogoprotos.Data.PokemonData()]
-    private var _pokemonsById = [(num: Int32(), pokemons: [Pogoprotos.Data.PokemonData()])]
+    private let BAR_SORT_BUTTON_TAG = 10
     
-    var pokemons: [Pogoprotos.Data.PokemonData] {
-        get {
-            return _pokemons
-        }
-        set (pokemons) {
-            self._pokemons = pokemons
-            self._pokemonsById = self.getPokemonById()
-        }
-    }
+    var goAPI: GoAPI!
     
+    @IBOutlet weak var filterTextField: UITextField!
+    @IBOutlet var collectionView: UICollectionView!
+    
+    private var _dataSource: PokemonCollectionDataSource!
+    private var _viewGestureRecognizer: UITapGestureRecognizer!
+    private var refreshControl: UIRefreshControl!
+    
+    let presenter: Presentr = {
+        let presenter = Presentr(presentationType: .Alert)
+        presenter.transitionType = TransitionType.CrossDissolve
+        presenter.presentationType = PresentationType.Popup
+        return presenter
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView?.reloadData()
+        
+        self._dataSource = PokemonCollectionDataSource(collectionView: self.collectionView)
+        self.collectionView.dataSource = self._dataSource
+        self.collectionView.delegate = self
+        
+        // Refresh control
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(PokemonCollectionViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView?.addSubview(refreshControl)
+        
+        // Inventory fetching
+        self._dataSource.inventory = InventoryService.getInventory(goAPI.username)
+        self.fetchInventory(nil)
+        
+        self.initFilterTextField()
+        self.initGestureRecognizer()
     }
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return self._pokemonsById.count
-    }
-    
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self._pokemonsById[section].pokemons.count
-    }
-    
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PokemonCell", forIndexPath: indexPath)
-        if let cell = cell as? PokemonCollectionViewCell {
-            let pokemon = self._pokemonsById[indexPath.section].pokemons[indexPath.row]
-            cell.pokemon = pokemon
+    func refresh(sender:AnyObject) {
+        self.fetchInventory { 
+            self.refreshControl.endRefreshing()
         }
-        return cell
     }
     
-    private func getPokemonById() -> [(num: Int32, pokemons: [Pogoprotos.Data.PokemonData])] {
-        var byNum = [(num: Int32(), pokemons: [Pogoprotos.Data.PokemonData()])]
-        for pokemon in self.pokemons {
-            if let index = byNum.indexOf({(num: Int32, _: [Pogoprotos.Data.PokemonData]) in pokemon.pokemonId.rawValue == num}) {
-                byNum[index].pokemons.append(pokemon)
-            } else {
-                byNum.append((num: pokemon.pokemonId.rawValue, pokemons: [pokemon]))
+    @IBAction func onTapSort(sender: AnyObject) {
+        if sender.tag == BAR_SORT_BUTTON_TAG {
+            let sortingMethods = [
+                (title: "Date", mode: PokemonCollectionDataSourceMode.Date),
+                (title: "IV", mode: PokemonCollectionDataSourceMode.IV),
+                (title: "CP", mode: PokemonCollectionDataSourceMode.CP),
+                (title: "Num (then IV)", mode: PokemonCollectionDataSourceMode.NumThenIV),
+                (title: "Num (then CP)", mode: PokemonCollectionDataSourceMode.NumThenCP),
+                (title: "Num (then Date)", mode: PokemonCollectionDataSourceMode.NumThenDate),
+                (title: "Candy", mode: PokemonCollectionDataSourceMode.Candy),
+            ]
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            for sortingMethod in sortingMethods {
+                let sameMode = self._dataSource.mode == sortingMethod.mode
+                let style: UIAlertActionStyle = sameMode ? .Cancel : .Default
+                let handler: ((UIAlertAction) -> Void)? = sameMode ? nil : { (_) in
+                    self._dataSource.mode = sortingMethod.mode
+                }
+                let alertAction = UIAlertAction(title: sortingMethod.title, style: style, handler: handler)
+                alertController.addAction(alertAction)
             }
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
-        let byNumSorted = byNum.sort({ (tuple1: (num: Int32, pokemons: [Pogoprotos.Data.PokemonData]), tuple2: (num: Int32, pokemons: [Pogoprotos.Data.PokemonData])) -> Bool in
-            return tuple1.num < tuple2.num
-        })
-        var byNumIVSorted = byNumSorted.map { (group: (num: Int32, pokemons: Array<Pogoprotos.Data.PokemonData>)) -> (num: Int32, pokemons: Array<Pogoprotos.Data.PokemonData>) in
-            let sortedPokemons = group.pokemons.sort { (p1: Pogoprotos.Data.PokemonData, p2: Pogoprotos.Data.PokemonData) -> Bool in
-                return p1.individualAttack + p1.individualDefense + p1.individualStamina > p2.individualAttack + p2.individualDefense + p2.individualStamina
+    }
+    
+    private func fetchInventory(callback: (() -> Void)?) {
+        self.goAPI.getInventory { (success, inventory) in
+            if let inventory = inventory {
+                self._dataSource.inventory = inventory
             }
-            return (num: group.num, pokemons: sortedPokemons)
+            callback?()
         }
-        if byNumIVSorted.first?.num == 0 {
-            byNumIVSorted.removeAtIndex(0)
-        }
-        return byNumIVSorted
     }
 
 }
 
 
-extension PokemonCollectionViewController : UICollectionViewDelegateFlowLayout {
+extension PokemonCollectionViewController: UICollectionViewDelegate {
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewControllerWithIdentifier("PokemonDetailsViewController")
+        if let controller = viewController as? PokemonDetailsViewController {
+            let pokemon = self._dataSource.pokemonAtIndexPath(indexPath)
+            controller.pokemon = pokemon
+            controller.candyAmount = self._dataSource.inventory.getCandyAmount(pokemon.num)
+            customPresentViewController(self.presenter, viewController: controller, animated: true, completion: nil)
+        }
+    }
+
+}
+
+
+extension PokemonCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSize(width: 111, height: 157)
@@ -84,4 +121,45 @@ extension PokemonCollectionViewController : UICollectionViewDelegateFlowLayout {
         return UIEdgeInsetsMake(10, 10, 10, 10)
     }
 
+}
+
+
+extension PokemonCollectionViewController: UIGestureRecognizerDelegate {
+    
+    func initGestureRecognizer() {
+        self._viewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
+        self._viewGestureRecognizer.delegate = self
+        self.collectionView?.addGestureRecognizer(self._viewGestureRecognizer)
+    }
+    
+    func viewTapped(sender: UITapGestureRecognizer) {
+        self.filterTextField.endEditing(true)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return !(gestureRecognizer == self._viewGestureRecognizer) || self.filterTextField.isFirstResponder()
+    }
+    
+}
+
+
+extension PokemonCollectionViewController: UITextFieldDelegate {
+    
+    func initFilterTextField() {
+        self.filterTextField.addTarget(self, action: #selector(PokemonCollectionViewController.filterTextFieldValueChanged(_:)), forControlEvents: .EditingChanged)
+        self.filterTextField.delegate = self
+    }
+    
+    func filterTextFieldValueChanged(textField: UITextField) {
+        self._dataSource.filterText = self.filterTextField.text ?? ""
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == self.filterTextField {
+            self.filterTextField.endEditing(true)
+            return true
+        }
+        return false
+    }
+    
 }

@@ -12,13 +12,15 @@ import PGoApi
 class GoAPI: PGoApiDelegate {
 
     private let auth: PGoAuth
-    private var inventoryCallback: ((success: Bool, pokemons: [Pogoprotos.Data.PokemonData]?) -> Void)!
+    private var inventoryCallback: ((success: Bool, inventory: Inventory?) -> Void)!
+    let username: String
     
-    init(auth: PGoAuth) {
+    init(auth: PGoAuth, username: String) {
         self.auth = auth
+        self.username = username
     }
     
-    func getInventory(callback: (success: Bool, pokemons: [Pogoprotos.Data.PokemonData]?) -> Void) {
+    func getInventory(callback: (success: Bool, inventory: Inventory?) -> Void) {
         self.inventoryCallback = callback
         let request = PGoApiRequest()
         request.getInventory()
@@ -28,20 +30,25 @@ class GoAPI: PGoApiDelegate {
     func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse) {
         if (intent == .GetInventory) {
             let r = response.subresponses[0] as! Pogoprotos.Networking.Responses.GetInventoryResponse
-            var pokemons = [Pogoprotos.Data.PokemonData()]
+            var pokemons = [Pokemon]()
+            var candies = [Candy]()
             for item in r.inventoryDelta.inventoryItems {
                 if let pokemonData = item.inventoryItemData.pokemonData {
                     if !(pokemonData.isEgg || pokemonData.pokemonId.rawValue <= 0) {
-                        pokemons.append(pokemonData)
+                        pokemons.append(Pokemon.fromPokemonData(pokemonData, ownerUsername: self.username))
                     }
+                } else if let candy = item.inventoryItemData.candy {
+                    candies.append(Candy.fromCandyData(candy))
                 }
             }
-            self.inventoryCallback(success: true, pokemons: pokemons)
+            let inventory = Inventory.fromData(self.username, pokemons: pokemons, candies: candies)
+            InventoryService.addInventory(inventory)
+            self.inventoryCallback(success: true, inventory: inventory)
         }
     }
     
     func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?) {
-        self.inventoryCallback(success: false, pokemons: nil)
+        self.inventoryCallback(success: false, inventory: nil)
     }
     
 }

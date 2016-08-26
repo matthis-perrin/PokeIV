@@ -3,3 +3,4 @@ pod 'PGoApi', :git => 'https://github.com/lsapan/pgoapi-swift', :branch => 'mast
 pod 'ProtocolBuffers-Swift', :git => 'https://github.com/alexeyxo/protobuf-swift', :branch => 'ProtoBuf3.0-Swift2.0'
 pod 'RealmSwift'
 pod 'MBProgressHUD', '~> 1.0.0'
+pod 'Presentr'

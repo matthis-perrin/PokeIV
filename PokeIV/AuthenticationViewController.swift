@@ -21,6 +21,8 @@ class AuthenticationViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var rememberedAccountTableView: UITableView!
     @IBOutlet var viewtapGestureRecognizer: UITapGestureRecognizer!
     
+    var api: GoAPI?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.rememberedAccountTableView.delegate = self
@@ -66,31 +68,27 @@ class AuthenticationViewController: UIViewController, UITableViewDelegate, UITab
         }
         let pokemonGoCallback = { (success: Bool, auth: PGoAuth?) in
             if let auth = auth {
-                let api = GoAPI(auth: auth)
+                self.api = GoAPI(auth: auth, username: username)
                 if remember {
                     GoogleAccountService.addAccount(username, password: password)
                     self.rememberedAccountTableView.reloadData()
                 }
-                hud.label.text = "Fetching Pokemons"
-                api.getInventory { (success, pokemons) in
-                    if let pokemons = pokemons {
-                        hud.hideAnimated(false)
-                        let controllerId = "PokemonCollectionViewControllerId"
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        if let controller = storyboard.instantiateViewControllerWithIdentifier(controllerId) as? PokemonCollectionViewController {
-                            controller.pokemons = pokemons
-                            self.navigationController?.pushViewController(controller, animated: true)
-                        }
-                    } else {
-                        hideHUDWithMessage("Error")
-                    }
-                }
+                hud.hideAnimated(false)
+                self.performSegueWithIdentifier("showPokemonCollectionViewSegue", sender: nil)
             } else {
                 hideHUDWithMessage("Error")
             }
         }
         let authService = AuthenticationService()
         authService.logIn(username, password: password, googleCallback: googleCallback, pokemonGoCallback: pokemonGoCallback)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showPokemonCollectionViewSegue") {
+            if let controller = segue.destinationViewController as? PokemonCollectionViewController {
+                controller.goAPI = self.api
+            }
+        }
     }
 
     // MARK: - Table View Delegate and DataSource
@@ -121,7 +119,6 @@ class AuthenticationViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let accounts = GoogleAccountService.getAccounts()
         let account = accounts[indexPath.row]
-        print(account.username, account.password)
         self.authenticate(account.username, password: account.password, remember: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
