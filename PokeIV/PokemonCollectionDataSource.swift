@@ -55,7 +55,7 @@ class PokemonCollectionDataSource: NSObject {
         get {
             return _filterText
         }
-        set(mode) {
+        set(filterText) {
             self._filterText = filterText
             self.buildGroups()
         }
@@ -79,7 +79,7 @@ class PokemonCollectionDataSource: NSObject {
         var filteredPokemon = Array(self.inventory.pokemons)
         if !self.filterText.isEmpty {
             filteredPokemon = filteredPokemon.filter { (pokemon) -> Bool in
-                let pokemonName = NUM_TO_NAME[pokemon.num] ?? ""
+                let pokemonName = pokemon.displayName
                 return pokemonName.uppercaseString.containsString(self.filterText.uppercaseString)
             }
         }
@@ -332,7 +332,7 @@ private class PokemonGroupStrategy_CP: PokemonGroupStrategy {
 
 private class PokemonGroupStrategy_NumThenIV: PokemonGroupStrategy {
     static func getGroupLabel(p: Pokemon) -> String {
-        return NUM_TO_NAME[p.num] ?? "Unknown"
+        return p.displayName
     }
     static func groupIsBefore(group1: PokemonGroup, group2: PokemonGroup) -> Bool {
         guard let p1 = group1.pokemons.first else { return false }
@@ -349,7 +349,7 @@ private class PokemonGroupStrategy_NumThenIV: PokemonGroupStrategy {
 
 private class PokemonGroupStrategy_NumThenCP: PokemonGroupStrategy {
     static func getGroupLabel(p: Pokemon) -> String {
-        return NUM_TO_NAME[p.num] ?? "Unknown"
+        return p.displayName
     }
     static func groupIsBefore(group1: PokemonGroup, group2: PokemonGroup) -> Bool {
         guard let p1 = group1.pokemons.first else { return false }
@@ -366,7 +366,7 @@ private class PokemonGroupStrategy_NumThenCP: PokemonGroupStrategy {
 
 private class PokemonGroupStrategy_NumThenDate: PokemonGroupStrategy {
     static func getGroupLabel(p: Pokemon) -> String {
-        return NUM_TO_NAME[p.num] ?? "Unknown"
+        return p.displayName
     }
     static func groupIsBefore(group1: PokemonGroup, group2: PokemonGroup) -> Bool {
         guard let p1 = group1.pokemons.first else { return false }
@@ -383,7 +383,7 @@ private class PokemonGroupStrategy_NumThenDate: PokemonGroupStrategy {
 
 private class PokemonGroupStrategy_Candy: PokemonGroupStrategy {
     static func getGroupLabel(p: Pokemon) -> String {
-        return NUM_TO_NAME[p.num] ?? "Unknown"
+        return p.displayName
     }
     static func groupIsBefore(group1: PokemonGroup, group2: PokemonGroup) -> Bool {
         let candy1 = group1.candyAmount ?? 0

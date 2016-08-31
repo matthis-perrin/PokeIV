@@ -53,7 +53,13 @@ class Account: Object {
         }
         let pokemonGoCallback = { (success: Bool) in
             if success {
-                self.save()
+                do {
+                    let realm = try! Realm()
+                    try! realm.write {
+                        self.lastAccess = NSDate()
+                        realm.add(self, update: true)
+                    }
+                }
             }
             callback(success: success)
         }
@@ -64,8 +70,13 @@ class Account: Object {
         let api = GoApi(account: self)
         api.getInventory({ (success, inventory) in
             if let inventory = inventory {
-                self.inventory = inventory
-                self.save()
+                do {
+                    let realm = try! Realm()
+                    try! realm.write {
+                        self.lastAccess = NSDate()
+                        self.inventory = inventory
+                    }
+                }
             }
             callback()
         })
@@ -86,20 +97,6 @@ class Account: Object {
     
     func isLoggedIn() -> Bool {
         return AuthenticationService.getAuth(self.username) != nil
-    }
-    
-    
-    // PRIVATE UTILS
-    // -------------
-    
-    private func save() {
-        self.lastAccess = NSDate()
-        let realm = try! Realm()
-        do {
-            try! realm.write {
-                realm.add(self, update: true)
-            }
-        }
     }
     
 }

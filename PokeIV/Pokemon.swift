@@ -64,9 +64,10 @@ class Pokemon: Object {
             return (self.attack + self.defence + self.stamina) / (3 * Pokemon.MAX_STAT)
         }
     }
-    
-    override static func primaryKey() -> String? {
-        return "id"
+    var displayName: String {
+        get {
+            return self.nickname == "" ? NUM_TO_NAME[self.num] ?? "Unknown" : self.nickname as String
+        }
     }
     
     static func fromPokemonData(data: Pogoprotos.Data.PokemonData) -> Pokemon {

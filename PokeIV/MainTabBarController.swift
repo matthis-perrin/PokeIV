@@ -17,8 +17,10 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let accounts = Account.getAll()
         if let firstAccount = accounts.first {
+            self.setAccount(firstAccount)
             self.navigateTo(Tab.Pokemons)
         } else {
             self.navigateTo(Tab.Accounts)
@@ -27,6 +29,15 @@ class MainTabBarController: UITabBarController {
 
     func navigateTo(tab: Tab) {
         self.selectedIndex = tab.rawValue
+    }
+    
+    func setAccount(account: Account) {
+        let controllers = self.viewControllers
+        if let pokemonsNavigationController = controllers?[0] as? UINavigationController {
+            if let pokemonsController = pokemonsNavigationController.topViewController as? PokemonCollectionViewController {
+                pokemonsController.setAccount(account)
+            }
+        }
     }
 
 }

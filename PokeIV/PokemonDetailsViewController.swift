@@ -63,8 +63,7 @@ class PokemonDetailsViewController: UIViewController {
         if self.isViewLoaded() {
             self.creationTimeLabel.text = self.pokemon.creationTime.timeAgo(true)
             
-//            self.nameLabel.text = NUM_TO_NAME[self.pokemon.num] ?? "Unknown"
-            self.nameLabel.text = self.pokemon.nickname as String
+            self.nameLabel.text = self.pokemon.displayName
             
             self.candyAmountLabel.text = String(self.candyAmount)
             self.candyView.num = self.pokemon.num

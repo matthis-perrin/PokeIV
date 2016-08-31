@@ -70,6 +70,7 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func onLogIn(account: Account) {
         if let tabBarController = self.tabBarController as? MainTabBarController {
+            tabBarController.setAccount(account)
             tabBarController.navigateTo(.Pokemons)
         }
     }

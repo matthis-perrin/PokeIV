@@ -17,9 +17,7 @@ class PokemonCollectionViewCell: UICollectionViewCell {
         }
         set(pokemon) {
             self._pokemon = pokemon
-            dispatch_async(dispatch_get_main_queue()) {
-                self.updateUI()
-            };
+            self.updateUI()
         }
     }
     
@@ -28,12 +26,23 @@ class PokemonCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var pokemonImageView: UIImageView!
     @IBOutlet weak var cpLabel: UILabel!
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initUI()
+    }
     
-    private func updateUI() {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initUI()
+    }
+    
+    private func initUI() {
         self.contentView.layer.cornerRadius = 5
         self.contentView.layer.borderWidth = 1
         self.contentView.layer.borderColor = UIColor(white: 0.9, alpha: 1).CGColor
-        
+    }
+    
+    private func updateUI() {
         let pokemon = self.pokemon ?? Pokemon()
         
         let ratio = pokemon.IVRatio

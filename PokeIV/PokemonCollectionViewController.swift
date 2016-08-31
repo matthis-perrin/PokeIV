@@ -15,14 +15,13 @@ class PokemonCollectionViewController: UIViewController {
 
     private let BAR_SORT_BUTTON_TAG = 10
     
-    var account: Account!
-    
     @IBOutlet weak var filterTextField: UITextField!
     @IBOutlet var collectionView: UICollectionView!
     
     private var _dataSource: PokemonCollectionDataSource!
     private var _viewGestureRecognizer: UITapGestureRecognizer!
     private var refreshControl: UIRefreshControl!
+    private var account: Account?
     
     let presenter: Presentr = {
         let presenter = Presentr(presentationType: .Alert)
@@ -38,24 +37,20 @@ class PokemonCollectionViewController: UIViewController {
         self.collectionView.dataSource = self._dataSource
         self.collectionView.delegate = self
         
-        // Refresh control
-        refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(PokemonCollectionViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.collectionView?.addSubview(refreshControl)
-        
-        // Inventory fetching
-        self._dataSource.inventory = self.account.getInventory()
-        self.fetchInventory(nil)
-        
         self.initFilterTextField()
         self.initGestureRecognizer()
+        
+        if let account = self.account {
+            self._dataSource.inventory = account.getInventory()
+        }
     }
     
-    func refresh(sender:AnyObject) {
-        self.fetchInventory { 
-            self.refreshControl.endRefreshing()
+    func setAccount(account: Account) {
+        self.account = account
+        if let dataSource = self._dataSource {
+            dataSource.inventory = account.getInventory()
         }
+        self.fetchInventory()
     }
     
     @IBAction func onTapSort(sender: AnyObject) {
@@ -83,10 +78,13 @@ class PokemonCollectionViewController: UIViewController {
         }
     }
     
-    private func fetchInventory(callback: (() -> Void)?) {
-        self.account.refreshInventory {
-            self._dataSource.inventory = self.account.getInventory()
-            callback?()
+    private func fetchInventory() {
+        if let account = self.account {
+            account.refreshInventory {
+                if let dataSource = self._dataSource {
+                    dataSource.inventory = account.getInventory()
+                }
+            }
         }
     }
 
