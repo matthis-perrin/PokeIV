@@ -12,8 +12,14 @@ import PGoApi
 class AuthenticationService: PGoAuthDelegate, PGoApiDelegate {
 
     private let auth: GPSOAuth
-    private var googleCallback: ((success: Bool, auth: GPSOAuth?) -> Void)!
-    private var pokemonGoCallback: ((success: Bool, auth: GPSOAuth?) -> Void)!
+    private var googleCallback: ((success: Bool) -> Void)!
+    private var pokemonGoCallback: ((success: Bool) -> Void)!
+    
+    private static var auths: [String: PGoAuth] = [:]
+    
+    static func getAuth(username: String) -> PGoAuth? {
+        return AuthenticationService.auths[username]
+    }
     
     init() {
         self.auth = GPSOAuth()
@@ -22,33 +28,34 @@ class AuthenticationService: PGoAuthDelegate, PGoApiDelegate {
     
     func logIn(username: String,
                password: String,
-               googleCallback: (success: Bool, auth: GPSOAuth?) -> Void,
-               pokemonGoCallback: (success: Bool, auth: GPSOAuth?) -> Void) {
+               googleCallback: (success: Bool) -> Void,
+               pokemonGoCallback: (success: Bool) -> Void) {
         self.googleCallback = googleCallback
         self.pokemonGoCallback = pokemonGoCallback
         self.auth.login(withUsername: username, withPassword: password)
     }
     
     func didReceiveAuth() {
-        self.googleCallback(success: true, auth: self.auth)
+        self.googleCallback(success: true)
         let request = PGoApiRequest()
         request.simulateAppStart()
         request.makeRequest(.Login, auth: self.auth, delegate: self)
     }
     
     func didNotReceiveAuth() {
-        self.googleCallback(success: false, auth: nil)
+        self.googleCallback(success: false)
     }
     
     func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse) {
         if (intent == .Login) {
             self.auth.endpoint = "https://\((response.response as! Pogoprotos.Networking.Envelopes.ResponseEnvelope).apiUrl)/rpc"
-            self.pokemonGoCallback(success: true, auth: self.auth)
+            AuthenticationService.auths[self.auth.email] = self.auth
+            self.pokemonGoCallback(success: true)
         }
     }
     
     func didReceiveApiError(intent: PGoApiIntent, statusCode: Int?) {
-        self.pokemonGoCallback(success: false, auth: nil)
+        self.pokemonGoCallback(success: false)
     }
     
 }

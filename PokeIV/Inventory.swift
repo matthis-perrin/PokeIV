@@ -12,7 +12,6 @@ import PGoApi
 
 class Inventory: Object {
 
-    dynamic var username: String = ""
     dynamic var creationTime: NSDate = NSDate()
     let pokemons = List<Pokemon>()
     let candies = List<Candy>()
@@ -27,13 +26,8 @@ class Inventory: Object {
         return 0
     }
     
-    override static func primaryKey() -> String? {
-        return "username"
-    }
-    
-    static func fromData(username: String, pokemons: [Pokemon], candies: [Candy]) -> Inventory {
+    static func fromData(pokemons: [Pokemon], candies: [Candy]) -> Inventory {
         let inventory = Inventory()
-        inventory.username = username
         inventory.pokemons.appendContentsOf(pokemons)
         inventory.candies.appendContentsOf(candies)
         return inventory

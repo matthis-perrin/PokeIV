@@ -17,7 +17,6 @@ class Pokemon: Object {
     private static let MAX_STAT = 15.0
     
     dynamic var id: NSNumber = 0
-    dynamic var ownerUsername: NSString = ""
     
     dynamic var cp: Double = 0.0
     dynamic var attack: Double = 0.0
@@ -70,11 +69,10 @@ class Pokemon: Object {
         return "id"
     }
     
-    static func fromPokemonData(data: Pogoprotos.Data.PokemonData, ownerUsername: String) -> Pokemon {
+    static func fromPokemonData(data: Pogoprotos.Data.PokemonData) -> Pokemon {
         let pokemon = Pokemon()
         
         pokemon.id = NSNumber(unsignedLongLong: data.id)
-        pokemon.ownerUsername = ownerUsername
         
         pokemon.cp = Double(data.cp)
         pokemon.attack = Double(data.individualAttack)

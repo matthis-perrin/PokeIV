@@ -4,8 +4,6 @@ PODS:
   - PGoApi (0.1.0):
     - Alamofire (~> 3.4)
     - ProtocolBuffers-Swift (~> 3.0)
-  - PopupDialog (0.4.0):
-    - TZStackView
   - Presentr (0.1.8)
   - ProtocolBuffers-Swift (3.0.0)
   - Realm (1.0.2):
@@ -13,12 +11,10 @@ PODS:
   - Realm/Headers (1.0.2)
   - RealmSwift (1.0.2):
     - Realm (= 1.0.2)
-  - TZStackView (1.2.0)
 
 DEPENDENCIES:
   - MBProgressHUD (~> 1.0.0)
   - PGoApi (from `https://github.com/lsapan/pgoapi-swift`, branch `master`)
-  - PopupDialog (~> 0.4)
   - Presentr
   - ProtocolBuffers-Swift (from `https://github.com/alexeyxo/protobuf-swift`, branch
     `ProtoBuf3.0-Swift2.0`)
@@ -44,11 +40,9 @@ SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   PGoApi: 8cee6dd3898aee27925cac4e9d8cdd7d154bfc68
-  PopupDialog: 5f87c0c97af1cf5f2eee6e5a83421c3fc0d22fb5
   Presentr: 0e65151d93a0c432f6884b66075b15b25a2870ef
   ProtocolBuffers-Swift: 948824656ef9f507348481655d409628b0219be0
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
-  TZStackView: 4b82373b4aabe4d99adf739a34e1bc6755149272
 
 COCOAPODS: 0.39.0

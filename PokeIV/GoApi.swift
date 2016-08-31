@@ -9,22 +9,40 @@
 import UIKit
 import PGoApi
 
-class GoAPI: PGoApiDelegate {
+class GoApi: PGoApiDelegate {
 
-    private let auth: PGoAuth
+    private let account: Account
     private var inventoryCallback: ((success: Bool, inventory: Inventory?) -> Void)!
-    let username: String
     
-    init(auth: PGoAuth, username: String) {
-        self.auth = auth
-        self.username = username
+    init(account: Account) {
+        self.account = account
     }
     
     func getInventory(callback: (success: Bool, inventory: Inventory?) -> Void) {
+        if let auth = AuthenticationService.getAuth(self.account.username) {
+            self._getInventory(auth, callback: callback)
+        } else {
+            let googleCallback = {(success: Bool) in
+                if !success {
+                    callback(success: false, inventory: nil)
+                }
+            }
+            let pokemonGoCallback = {(success: Bool) in
+                if success {
+                    self.getInventory(callback)
+                } else {
+                    callback(success: false, inventory: nil)
+                }
+            }
+            AuthenticationService().logIn(account.username, password: account.password, googleCallback: googleCallback, pokemonGoCallback: pokemonGoCallback)
+        }
+    }
+    
+    private func _getInventory(auth: PGoAuth, callback: (success: Bool, inventory: Inventory?) -> Void) {
         self.inventoryCallback = callback
         let request = PGoApiRequest()
         request.getInventory()
-        request.makeRequest(.GetInventory, auth: self.auth, delegate: self)
+        request.makeRequest(.GetInventory, auth: auth, delegate: self)
     }
     
     func didReceiveApiResponse(intent: PGoApiIntent, response: PGoApiResponse) {
@@ -35,14 +53,13 @@ class GoAPI: PGoApiDelegate {
             for item in r.inventoryDelta.inventoryItems {
                 if let pokemonData = item.inventoryItemData.pokemonData {
                     if !(pokemonData.isEgg || pokemonData.pokemonId.rawValue <= 0) {
-                        pokemons.append(Pokemon.fromPokemonData(pokemonData, ownerUsername: self.username))
+                        pokemons.append(Pokemon.fromPokemonData(pokemonData))
                     }
                 } else if let candy = item.inventoryItemData.candy {
                     candies.append(Candy.fromCandyData(candy))
                 }
             }
-            let inventory = Inventory.fromData(self.username, pokemons: pokemons, candies: candies)
-            InventoryService.addInventory(inventory)
+            let inventory = Inventory.fromData(pokemons, candies: candies)
             self.inventoryCallback(success: true, inventory: inventory)
         }
     }

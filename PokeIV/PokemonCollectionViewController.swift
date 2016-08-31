@@ -15,7 +15,7 @@ class PokemonCollectionViewController: UIViewController {
 
     private let BAR_SORT_BUTTON_TAG = 10
     
-    var goAPI: GoAPI!
+    var account: Account!
     
     @IBOutlet weak var filterTextField: UITextField!
     @IBOutlet var collectionView: UICollectionView!
@@ -45,7 +45,7 @@ class PokemonCollectionViewController: UIViewController {
         self.collectionView?.addSubview(refreshControl)
         
         // Inventory fetching
-        self._dataSource.inventory = InventoryService.getInventory(goAPI.username)
+        self._dataSource.inventory = self.account.getInventory()
         self.fetchInventory(nil)
         
         self.initFilterTextField()
@@ -84,10 +84,8 @@ class PokemonCollectionViewController: UIViewController {
     }
     
     private func fetchInventory(callback: (() -> Void)?) {
-        self.goAPI.getInventory { (success, inventory) in
-            if let inventory = inventory {
-                self._dataSource.inventory = inventory
-            }
+        self.account.refreshInventory {
+            self._dataSource.inventory = self.account.getInventory()
             callback?()
         }
     }
