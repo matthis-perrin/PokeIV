@@ -17,9 +17,24 @@ class Account: Object {
     dynamic var lastAccess: NSDate = NSDate()
     dynamic var inventory: Inventory? = Inventory()
     
+    private var _isRefreshing: Bool = false
+    var isRefreshing: Bool {
+        get {
+            return _isRefreshing
+        }
+    }
+    
+    var accountRefreshEventName: String {
+        get {
+            return "\(self.username)_account_refreshingStateChanged"
+        }
+    }
+    
     override static func primaryKey() -> String? {
         return "username"
     }
+    
+    private static let nc = NSNotificationCenter.defaultCenter()
     
     
     // STATIC METHODS
@@ -45,9 +60,11 @@ class Account: Object {
     // -------------
     
     func logIn(callback: (success: Bool) -> Void) {
+        self.setIsRefreshing(true)
         let authenticationService = AuthenticationService()
         let googleCallback = { (success: Bool) in
             if !success {
+                self.setIsRefreshing(false)
                 callback(success: false)
             }
         }
@@ -61,6 +78,7 @@ class Account: Object {
                     }
                 }
             }
+            self.setIsRefreshing(false)
             callback(success: success)
         }
         authenticationService.logIn(self.username, password: self.password, googleCallback: googleCallback, pokemonGoCallback: pokemonGoCallback)
@@ -68,6 +86,7 @@ class Account: Object {
     
     func refreshInventory(callback: () -> Void) {
         let api = GoApi(account: self)
+        self.setIsRefreshing(true)
         api.getInventory({ (success, inventory) in
             if let inventory = inventory {
                 do {
@@ -78,6 +97,7 @@ class Account: Object {
                     }
                 }
             }
+            self.setIsRefreshing(false)
             callback()
         })
     }
@@ -97,6 +117,11 @@ class Account: Object {
     
     func isLoggedIn() -> Bool {
         return AuthenticationService.getAuth(self.username) != nil
+    }
+    
+    private func setIsRefreshing(newValue: Bool) {
+        self._isRefreshing = newValue
+        Account.nc.postNotificationName(self.accountRefreshEventName, object: nil)
     }
     
 }

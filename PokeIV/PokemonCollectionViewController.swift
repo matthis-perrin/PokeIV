@@ -8,7 +8,6 @@
 
 import UIKit
 import PGoApi
-import PopupDialog
 import Presentr
 
 class PokemonCollectionViewController: UIViewController {
@@ -17,11 +16,14 @@ class PokemonCollectionViewController: UIViewController {
     
     @IBOutlet weak var filterTextField: UITextField!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var refreshBarButtonItem: UIBarButtonItem!
     
     private var _dataSource: PokemonCollectionDataSource!
     private var _viewGestureRecognizer: UITapGestureRecognizer!
     private var refreshControl: UIRefreshControl!
     private var account: Account?
+    
+    private static let nc = NSNotificationCenter.defaultCenter()
     
     let presenter: Presentr = {
         let presenter = Presentr(presentationType: .Alert)
@@ -46,10 +48,13 @@ class PokemonCollectionViewController: UIViewController {
     }
     
     func setAccount(account: Account) {
+        self.updateAccountRefreshObserver(self.account, newAccount: account)
+        
         self.account = account
         if let dataSource = self._dataSource {
             dataSource.inventory = account.getInventory()
         }
+        
         self.fetchInventory()
     }
     
@@ -80,9 +85,11 @@ class PokemonCollectionViewController: UIViewController {
     
     private func fetchInventory() {
         if let account = self.account {
-            account.refreshInventory {
-                if let dataSource = self._dataSource {
-                    dataSource.inventory = account.getInventory()
+            if !account.isRefreshing {
+                account.refreshInventory {
+                    if let dataSource = self._dataSource {
+                        dataSource.inventory = account.getInventory()
+                    }
                 }
             }
         }
@@ -156,6 +163,37 @@ extension PokemonCollectionViewController: UITextFieldDelegate {
             return true
         }
         return false
+    }
+    
+}
+
+
+extension PokemonCollectionViewController {
+    
+    func updateAccountRefreshObserver(oldAccount: Account?, newAccount: Account?) {
+        // Remove previous observer
+        if let account = oldAccount {
+            PokemonCollectionViewController.nc.removeObserver(self, name: account.accountRefreshEventName, object: nil)
+        }
+        // Add new observer
+        if let account = newAccount {
+            PokemonCollectionViewController.nc.addObserver(self, selector: #selector(accountRefreshStateChanged), name: account.accountRefreshEventName, object: nil)
+        }
+        // Trigger an update
+        self.accountRefreshStateChanged()
+    }
+    
+    @IBAction func onRefreshBarButtonItemTap(sender: AnyObject) {
+        self.fetchInventory()
+    }
+    
+    func accountRefreshStateChanged() {
+        let isRefreshing = self.account?.isRefreshing ?? false
+        if isRefreshing {
+            self.refreshBarButtonItem.enabled = false
+        } else {
+            self.refreshBarButtonItem.enabled = true
+        }
     }
     
 }

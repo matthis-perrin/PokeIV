@@ -137,15 +137,20 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="MDl-ue-cAL">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" tag="10" title="Sort" id="6h2-ef-fCR">
+                            <connections>
+                                <action selector="onTapSort:" destination="FG8-Xu-aPu" id="em1-L1-Uak"/>
+                            </connections>
+                        </barButtonItem>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Filter" textAlignment="natural" minimumFontSize="17" id="RLm-dg-Zyi">
                             <rect key="frame" x="222.5" y="7" width="155.5" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                         </textField>
-                        <barButtonItem key="rightBarButtonItem" tag="10" title="Sort" id="6h2-ef-fCR">
+                        <barButtonItem key="rightBarButtonItem" image="navigationbar_refresh" id="A7c-lc-GUH">
                             <connections>
-                                <action selector="onTapSort:" destination="FG8-Xu-aPu" id="em1-L1-Uak"/>
+                                <action selector="onRefreshBarButtonItemTap:" destination="FG8-Xu-aPu" id="tVw-Ro-SFZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -154,6 +159,7 @@
                     <connections>
                         <outlet property="collectionView" destination="pLM-Qo-NIl" id="XCl-i8-nis"/>
                         <outlet property="filterTextField" destination="RLm-dg-Zyi" id="zro-e4-yJ8"/>
+                        <outlet property="refreshBarButtonItem" destination="A7c-lc-GUH" id="A3N-FB-YzR"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N19-yC-KEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -520,6 +526,7 @@
     </scenes>
     <resources>
         <image name="000.png" width="150" height="150"/>
+        <image name="navigationbar_refresh" width="22" height="22"/>
         <image name="tabbar_account" width="25" height="25"/>
         <image name="tabbar_pokemon" width="25" height="25"/>
     </resources>
