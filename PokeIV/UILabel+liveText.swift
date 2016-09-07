@@ -22,13 +22,14 @@ private class UILabelTimerActor {
     }
 }
 
-private var timers: [UILabel: UILabelTimerActor] = [:]
+private var timers: [Int: UILabelTimerActor] = [:]
 
 extension UILabel {
     public func liveText(textFn: () -> String) {
-        var actor = timers[self]
+        var actor = timers[self.hash]
         if actor == nil {
             actor = UILabelTimerActor(textFn: textFn, label: self)
+            timers[self.hash] = actor
         } else {
             actor?.textFn = textFn
         }

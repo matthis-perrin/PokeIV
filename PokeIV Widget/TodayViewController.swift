@@ -15,6 +15,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     private static let LOGGED_OUT_HEIGHT = CGFloat(50)
     private static let LOGGED_IN_HEIGHT = CGFloat(155)
     
+    private static let REFRESH_BUTTON_SUBTITLE_TAG = 13
+    private static let LAST_CAPTURED_TIME_TAG = 14
+    
     private var account: Account!
     
     @IBOutlet weak var refreshButtonTitleLabel: UILabel!
@@ -54,6 +57,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     private func initUI() {
+        self.refreshButtonSubtitleLabel.tag = TodayViewController.REFRESH_BUTTON_SUBTITLE_TAG
+        self.lastCapturedTimeLabel.tag = TodayViewController.LAST_CAPTURED_TIME_TAG
         self.refreshButtonView.layer.borderColor = UIColor(white: 1, alpha: 0.75).CGColor
         self.refreshButtonView.layer.borderWidth = 1
         self.refreshButtonView.layer.cornerRadius = 5
@@ -102,7 +107,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     private func showLoggedOutUI() {
-        print("Logged Out UI")
         self.preferredContentSize = CGSizeMake(0, TodayViewController.LOGGED_OUT_HEIGHT)
         self.loggedInView.hidden = true
         self.loggedOutView.hidden = false

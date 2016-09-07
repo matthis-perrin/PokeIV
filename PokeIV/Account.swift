@@ -49,7 +49,7 @@ class Account: Object {
     
     static func getAll() -> [Account] {
         do {
-            return try Array(Realm().objects(Account).sorted("lastAccess"))
+            return try Array(Realm().objects(Account).sorted("lastAccess", ascending: false))
         } catch {
             return []
         }
@@ -117,6 +117,15 @@ class Account: Object {
     
     func isLoggedIn() -> Bool {
         return AuthenticationService.getAuth(self.username) != nil
+    }
+    
+    func updateLastAccess() {
+        do {
+            let realm = try! Realm()
+            try! realm.write {
+                self.lastAccess = NSDate()
+            }
+        }
     }
     
     private func setIsRefreshing(newValue: Bool) {

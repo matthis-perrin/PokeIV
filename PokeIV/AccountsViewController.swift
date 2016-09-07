@@ -37,8 +37,8 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func logInHandler(sender: AnyObject?) {
         self.view.endEditing(true)
-        let username = usernameTextField.text ?? ""
-        let password = passwordTextField.text ?? ""
+        let username = self.usernameTextField.text ?? ""
+        let password = self.passwordTextField.text ?? ""
         self.authenticate(username, password: password)
     }
     
@@ -49,7 +49,7 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
         hud.backgroundView.color = UIColor(white: 0, alpha: 0.3)
         hud.label.text = "Connecting"
         
-        let account = Account.create(self.usernameTextField.text ?? "", password: self.passwordTextField.text ?? "")
+        let account = Account.create(username, password: password)
         account.logIn { (success) in
             self.rememberedAccountTableView.reloadData()
             if success {
@@ -66,6 +66,8 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func onLogIn(account: Account) {
+        account.updateLastAccess()
+        self.rememberedAccountTableView.reloadData()
         self.resetForm()
         if let tabBarController = self.tabBarController as? MainTabBarController {
             tabBarController.setAccount(account)
@@ -97,7 +99,7 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
             cell = UITableViewCell(style: style, reuseIdentifier: identifier)
         }
         cell.textLabel?.text = account.username
-        cell.detailTextLabel?.text = isLoggedIn ? "Current" : nil
+        cell.detailTextLabel?.text = isLoggedIn ? "Connected" : nil
         return cell
     }
     
