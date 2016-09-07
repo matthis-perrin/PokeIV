@@ -39,6 +39,7 @@ class PokemonCollectionViewController: UIViewController {
         self.collectionView.dataSource = self._dataSource
         self.collectionView.delegate = self
         
+        self.initPullToRefresh()
         self.initFilterTextField()
         self.initGestureRecognizer()
         
@@ -83,7 +84,7 @@ class PokemonCollectionViewController: UIViewController {
         }
     }
     
-    private func fetchInventory() {
+    @objc private func fetchInventory() {
         if let account = self.account {
             if !account.isRefreshing {
                 account.refreshInventory {
@@ -170,6 +171,19 @@ extension PokemonCollectionViewController: UITextFieldDelegate {
 
 extension PokemonCollectionViewController {
     
+    func initPullToRefresh() {
+        // Refresh control
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(PokemonCollectionViewController.fetchInventory), forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView?.addSubview(refreshControl)
+    }
+    
+}
+
+
+extension PokemonCollectionViewController {
+    
     func updateAccountRefreshObserver(oldAccount: Account?, newAccount: Account?) {
         // Remove previous observer
         if let account = oldAccount {
@@ -190,9 +204,12 @@ extension PokemonCollectionViewController {
     func accountRefreshStateChanged() {
         let isRefreshing = self.account?.isRefreshing ?? false
         if isRefreshing {
-            self.refreshBarButtonItem.enabled = false
+            self.refreshBarButtonItem?.enabled = false
+            self.refreshControl?.beginRefreshing()
+            
         } else {
-            self.refreshBarButtonItem.enabled = true
+            self.refreshBarButtonItem?.enabled = true
+            self.refreshControl?.endRefreshing()
         }
     }
     
