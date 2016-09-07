@@ -16,9 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        // Get Realm DB path
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.raccoonzninja.PokeIV")!
+        let path = directory.URLByAppendingPathComponent("db.realm")
         
-        // Flush Realm
+        // Update Realm config
+        var realmConfig = Realm.Configuration()
+        realmConfig.fileURL = path
+        Realm.Configuration.defaultConfiguration = realmConfig
+        
+        // Flush Realm if needed
         do {
             let _ = try Realm()
         } catch {

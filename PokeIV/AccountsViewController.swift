@@ -28,9 +28,6 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
         self.usernameTextField.delegate = self
         self.passwordTextField.delegate = self
         self.viewtapGestureRecognizer.delegate = self
-        
-        self.usernameTextField.text = ""
-        self.passwordTextField.text = ""
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,10 +66,16 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func onLogIn(account: Account) {
+        self.resetForm()
         if let tabBarController = self.tabBarController as? MainTabBarController {
             tabBarController.setAccount(account)
             tabBarController.navigateTo(.Pokemons)
         }
+    }
+    
+    private func resetForm() {
+        self.usernameTextField.text = ""
+        self.passwordTextField.text = ""
     }
     
     // MARK: - Table View Delegate and DataSource
