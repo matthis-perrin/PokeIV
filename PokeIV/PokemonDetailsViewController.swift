@@ -76,9 +76,13 @@ class PokemonDetailsViewController: UIViewController {
             self.IVPercentLabel.text = String(format: "%.1f%%", IVRatio)
             self.IVPercentLabel.textColor = ColorUtils.colorForRatio(self.pokemon.IVRatio)
             
-            self.attackLabel.text = "\(String(format: "%.0f", self.pokemon.attack)) ATTACK"
-            self.defenceLabel.text = "\(String(format: "%.0f", self.pokemon.defence)) DEFENCE"
-            self.staminaLabel.text = "\(String(format: "%.0f", self.pokemon.stamina)) STAMINA"
+            let attackText = NSLocalizedString("ATTACK", comment: "Pokemon attack - uppercase")
+            let defenseText = NSLocalizedString("DEFENSE", comment: "Pokemon defense - uppercase")
+            let staminaText = NSLocalizedString("STAMINA", comment: "Pokemon stamina - uppercase")
+            
+            self.attackLabel.text = "\(String(format: "%.0f", self.pokemon.attack)) \(attackText)"
+            self.defenceLabel.text = "\(String(format: "%.0f", self.pokemon.defence)) \(defenseText)"
+            self.staminaLabel.text = "\(String(format: "%.0f", self.pokemon.stamina)) \(staminaText)"
             
             let attackRatio = self.pokemon.attack / 15.0
             let newAttackConstraint = self.attackBarWidthConstraint.copyWithMultiplier(CGFloat(attackRatio))

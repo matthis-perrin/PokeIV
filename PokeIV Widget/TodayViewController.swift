@@ -68,7 +68,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.lastCapturedTimeLabel.tag = TodayViewController.LAST_CAPTURED_TIME_TAG
         self.refreshButtonSubtitleLabel.liveText { () -> String in
             if let account = self.account {
-                return "Updated \(account.lastAccess.timeAgo(true).lowercaseString)"
+                let updatedText = NSLocalizedString("TodayViewController.updated", comment: "Word `updated` as part of `updated n minutes ago`")
+                return "\(updatedText) \(account.lastAccess.timeAgo(true).lowercaseString)"
             } else {
                 return ""
             }
@@ -117,9 +118,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.loggedOutView.hidden = true
         
         if self.account.isRefreshing {
-            self.refreshButtonTitleLabel.text = "Refreshing..."
+            let refreshingText = NSLocalizedString("TodayViewController.Refreshing", comment: "Shown on the refresh button in the widget to show we are refreshing the data")
+            self.refreshButtonTitleLabel.text = refreshingText
         } else {
-            self.refreshButtonTitleLabel.text = "Refresh"
+            let refreshText = NSLocalizedString("TodayViewController.Refresh", comment: "Shown on the refresh button in the widget to the data")
+            self.refreshButtonTitleLabel.text = refreshText
         }
         
         let hideScrollButton = self.getOtherPokemons().count <= 8
@@ -137,7 +140,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.lastCapturedImageView.image = image
             
             self.lastCapturedTimeLabel.liveText { () -> String in
-                return "Captured \(pokemon.creationTime.timeAgo(true).lowercaseString)"
+                let captured = NSLocalizedString("TodayViewController.captured", comment: "Word `Captured` part of `Captured n minutes ago`")
+                return "\(captured) \(pokemon.creationTime.timeAgo(true).lowercaseString)"
             }
         }
         self.otherPokemonsTableView.reloadData()
@@ -216,7 +220,7 @@ extension TodayViewController: UITableViewDataSource {
         let pokemon = self.getOtherPokemons()[indexPath.row]
         let ivPercentText = "IV \(String(format: "%.1f%%", pokemon.IVRatio * 100))"
         let ivDetailsText = "(\(String(format: "%.0f%", pokemon.attack))/\(String(format: "%.0f%", pokemon.defence))/\(String(format: "%.0f%", pokemon.stamina)))"
-        let cpText = "CP \(String(format: "%.0f%", pokemon.cp))"
+        let cpText = "\(NSLocalizedString("CP", comment: "Pokemon CP")) \(String(format: "%.0f%", pokemon.cp))"
         cell.textLabel!.text = "\(ivPercentText) \(ivDetailsText) - \(cpText)"
         cell.selectionStyle = .None
         if pokemon.id == self.lastPokemon()?.id ?? -1 {
@@ -233,7 +237,7 @@ extension TodayViewController: UITableViewDataSource {
             return ""
         }
         let firstPokemon = otherPokemons.first!
-        return "\(NUM_TO_NAME[firstPokemon.num] ?? "Unknown") (\(otherPokemons.count))"
+        return "\(NUM_TO_NAME[firstPokemon.num] ?? UNKNOWN_NAME) (\(otherPokemons.count))"
     }
     
 }

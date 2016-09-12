@@ -64,11 +64,11 @@ class PokemonCollectionViewController: UIViewController {
             let sortingMethods = [
                 (title: "Date", mode: PokemonCollectionDataSourceMode.Date),
                 (title: "IV", mode: PokemonCollectionDataSourceMode.IV),
-                (title: "CP", mode: PokemonCollectionDataSourceMode.CP),
-                (title: "Num (then IV)", mode: PokemonCollectionDataSourceMode.NumThenIV),
-                (title: "Num (then CP)", mode: PokemonCollectionDataSourceMode.NumThenCP),
-                (title: "Num (then Date)", mode: PokemonCollectionDataSourceMode.NumThenDate),
-                (title: "Candy", mode: PokemonCollectionDataSourceMode.Candy),
+                (title: "PC", mode: PokemonCollectionDataSourceMode.CP),
+                (title: "Numéro (puis IV)", mode: PokemonCollectionDataSourceMode.NumThenIV),
+                (title: "Numéro (puis PC)", mode: PokemonCollectionDataSourceMode.NumThenCP),
+                (title: "Numéro (puis Date)", mode: PokemonCollectionDataSourceMode.NumThenDate),
+                (title: "Bonbon", mode: PokemonCollectionDataSourceMode.Candy),
             ]
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
             for sortingMethod in sortingMethods {
@@ -174,7 +174,8 @@ extension PokemonCollectionViewController {
     func initPullToRefresh() {
         // Refresh control
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        let pullToRefresh = NSLocalizedString("PullToRefresh", comment: "Shown in the refresh control when pulling the collection view to refresh the list of Pokemons")
+        self.refreshControl.attributedTitle = NSAttributedString(string: pullToRefresh)
         self.refreshControl.addTarget(self, action: #selector(PokemonCollectionViewController.fetchInventory), forControlEvents: UIControlEvents.ValueChanged)
         self.collectionView?.addSubview(refreshControl)
     }

@@ -1,0 +1,36 @@
+
+/* Class = "UILabel"; text = "Refresh"; ObjectID = "4zW-u8-b5y"; */
+"4zW-u8-b5y.text" = "Mettre à jour";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "6bv-tK-fs9"; */
+"6bv-tK-fs9.text" = "Titre";
+
+/* Class = "UILabel"; text = " - CP"; ObjectID = "9Dv-gJ-cq7"; */
+"9Dv-gJ-cq7.text" = " - PC";
+
+/* Class = "UILabel"; text = "IV"; ObjectID = "Ac3-49-paG"; */
+"Ac3-49-paG.text" = "IV";
+
+/* Class = "UILabel"; text = "(15/3/8)"; ObjectID = "FKA-lf-iav"; */
+"FKA-lf-iav.text" = "(15/3/8)";
+
+/* Class = "UIButton"; normalTitle = "Down"; ObjectID = "VRF-ID-NbD"; */
+"VRF-ID-NbD.normalTitle" = "Haut";
+
+/* Class = "UILabel"; text = "No Account"; ObjectID = "X0A-t2-piU"; */
+"X0A-t2-piU.text" = "Pas de compte";
+
+/* Class = "UILabel"; text = "Captured 10s ago"; ObjectID = "e3N-VK-ZLl"; */
+"e3N-VK-ZLl.text" = "Capturé il y a 10s";
+
+/* Class = "UILabel"; text = "97.8%"; ObjectID = "eQc-A5-L7e"; */
+"eQc-A5-L7e.text" = "97.8%";
+
+/* Class = "UIButton"; normalTitle = "Up"; ObjectID = "ezq-E5-Sto"; */
+"ezq-E5-Sto.normalTitle" = "Bas";
+
+/* Class = "UILabel"; text = "Updated 10 minutes ago"; ObjectID = "mzd-Aj-hgv"; */
+"mzd-Aj-hgv.text" = "Mis à jour il y a 10 minutes";
+
+/* Class = "UILabel"; text = "783"; ObjectID = "rBB-B7-T4v"; */
+"rBB-B7-T4v.text" = "783";

@@ -215,10 +215,10 @@ private class PokemonGroupStrategy_Date: PokemonGroupStrategy {
         return formatter
     }()
     
-    private static let LAST_10_MINUTES = "Last 10 minutes"
-    private static let LAST_HOUR = "Last hour"
-    private static let TODAY = "Today"
-    private static let YERSTERDAY = "Yesterday"
+    private static let LAST_10_MINUTES = NSLocalizedString("Last10Minutes", comment: "Header when listing pokemons by dates - Last 10 minutes")
+    private static let LAST_HOUR = NSLocalizedString("LastHour", comment: "Header when listing pokemons by dates - Last hour")
+    private static let TODAY = NSLocalizedString("Today", comment: "Header when listing pokemons by dates - Today")
+    private static let YERSTERDAY = NSLocalizedString("Yesterday", comment: "Header when listing pokemons by dates - Yesterday")
     
     static func getGroupLabel(p: Pokemon) -> String {
         let date = p.creationTime

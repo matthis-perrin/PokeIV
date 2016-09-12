@@ -47,19 +47,19 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
         let hud = MBProgressHUD.showHUDAddedTo(topView ?? self.view, animated: true)
         hud.mode = .Indeterminate
         hud.backgroundView.color = UIColor(white: 0, alpha: 0.3)
-        hud.label.text = "Connecting"
+        hud.label.text = NSLocalizedString("AccountsViewController.connecting", comment: "Shown in the HUD while connecting the user account")
         
         let account = Account.create(username, password: password)
         account.logIn { (success) in
             self.rememberedAccountTableView.reloadData()
             if success {
                 hud.mode = .Text
-                hud.label.text = "Success"
+                hud.label.text = NSLocalizedString("AccountsViewController.success", comment: "Shown in the HUD after succeeding to connect the user account")
                 hud.hideAnimated(true, afterDelay: 0.3)
                 self.onLogIn(account)
             } else {
                 hud.mode = .Text
-                hud.label.text = "Failure"
+                hud.label.text = NSLocalizedString("AccountsViewController.failure", comment: "Shown in the HUD after failing to connect the user account")
                 hud.hideAnimated(true, afterDelay: 1.0)
             }
         }
@@ -99,7 +99,8 @@ class AccountsViewController: UIViewController, UITableViewDelegate, UITableView
             cell = UITableViewCell(style: style, reuseIdentifier: identifier)
         }
         cell.textLabel?.text = account.username
-        cell.detailTextLabel?.text = isLoggedIn ? "Connected" : nil
+        let connectedString = NSLocalizedString("AccountsViewController.connected", comment: "Shown in the `remembered account table view` under the name of the account that are currently connected")
+        cell.detailTextLabel?.text = isLoggedIn ? connectedString : nil
         return cell
     }
     

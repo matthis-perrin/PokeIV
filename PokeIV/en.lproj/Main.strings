@@ -1,0 +1,72 @@
+
+/* Class = "UILabel"; text = "753"; ObjectID = "4Gj-1F-9Ca"; */
+"4Gj-1F-9Ca.text" = "753";
+
+/* Class = "UILabel"; text = "93.8%"; ObjectID = "5G9-cV-iso"; */
+"5G9-cV-iso.text" = "93.8%";
+
+/* Class = "UIBarButtonItem"; title = "Sort"; ObjectID = "6h2-ef-fCR"; */
+"6h2-ef-fCR.title" = "Sort";
+
+/* Class = "UILabel"; text = "3 DEFENCE"; ObjectID = "BXL-BY-jnl"; */
+"BXL-BY-jnl.text" = "3 DEFENCE";
+
+/* Class = "UICollectionViewController"; title = "Pokemons"; ObjectID = "FG8-Xu-aPu"; */
+"FG8-Xu-aPu.title" = "Pokemons";
+
+/* Class = "UILabel"; text = "98.7%"; ObjectID = "FPl-Rz-1YJ"; */
+"FPl-Rz-1YJ.text" = "98.7%";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "FcZ-KH-9zg"; */
+"FcZ-KH-9zg.text" = "-";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "PPk-Tq-Ugf"; */
+"PPk-Tq-Ugf.text" = "20";
+
+/* Class = "UITextField"; placeholder = "Filter"; ObjectID = "RLm-dg-Zyi"; */
+"RLm-dg-Zyi.placeholder" = "Filter";
+
+/* Class = "UILabel"; text = "7 STAMINA"; ObjectID = "T3u-mu-S7h"; */
+"T3u-mu-S7h.text" = "7 STAMINA";
+
+/* Class = "UILabel"; text = "IV"; ObjectID = "T8a-WY-3mv"; */
+"T8a-WY-3mv.text" = "IV";
+
+/* Class = "UILabel"; text = "Saved Accounts"; ObjectID = "TXu-H9-Ofa"; */
+"TXu-H9-Ofa.text" = "Saved Accounts";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "a1r-Hf-Nbt"; */
+"a1r-Hf-Nbt.normalTitle" = "Log In";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "eNn-yW-nN8"; */
+"eNn-yW-nN8.placeholder" = "Username";
+
+/* Class = "UILabel"; text = "13 ATTACK"; ObjectID = "gXt-hG-IMM"; */
+"gXt-hG-IMM.text" = "13 ATTACK";
+
+/* Class = "UILabel"; text = "Pidgey x 10"; ObjectID = "hds-as-zok"; */
+"hds-as-zok.text" = "Pidgey x 10";
+
+/* Class = "UILabel"; text = "3 days ago"; ObjectID = "iq6-Qd-UB0"; */
+"iq6-Qd-UB0.text" = "3 days ago";
+
+/* Class = "UITabBarItem"; title = "Accounts"; ObjectID = "lgM-Oa-jMi"; */
+"lgM-Oa-jMi.title" = "Accounts";
+
+/* Class = "UILabel"; text = "Google Authentication"; ObjectID = "mFi-of-4rl"; */
+"mFi-of-4rl.text" = "Google Authentication";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "nlJ-V9-zur"; */
+"nlJ-V9-zur.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "Bulbisaur"; ObjectID = "nmY-NK-jHO"; */
+"nmY-NK-jHO.text" = "Bulbisaur";
+
+/* Class = "UITabBarItem"; title = "Pokemons"; ObjectID = "oO6-8a-07O"; */
+"oO6-8a-07O.title" = "Pokemons";
+
+/* Class = "UILabel"; text = "CP 730"; ObjectID = "tGR-dW-Tu8"; */
+"tGR-dW-Tu8.text" = "CP 730";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "tbh-C7-hDI"; */
+"tbh-C7-hDI.text" = "3";

@@ -66,7 +66,7 @@ class Pokemon: Object {
     }
     var displayName: String {
         get {
-            return self.nickname == "" ? NUM_TO_NAME[self.num] ?? "Unknown" : self.nickname as String
+            return self.nickname == "" ? NUM_TO_NAME[self.num] ?? UNKNOWN_NAME : self.nickname as String
         }
     }
     
