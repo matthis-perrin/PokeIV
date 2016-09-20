@@ -70,3 +70,6 @@
 
 /* Class = "UILabel"; text = "3"; ObjectID = "tbh-C7-hDI"; */
 "tbh-C7-hDI.text" = "3";
+
+/* Class = "UITabBarItem"; title = "Evolutions"; ObjectID = "bTE-Cv-6rc"; */
+"bTE-Cv-6rc.title" = "Évolutions"

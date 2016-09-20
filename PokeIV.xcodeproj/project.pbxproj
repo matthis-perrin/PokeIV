@@ -61,6 +61,7 @@
 		2D3011AE1D76622F002AE8FA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D3011A71D76622F002AE8FA /* RealmSwift.framework */; };
 		2D3011B01D766891002AE8FA /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3011AF1D766891002AE8FA /* AccountsViewController.swift */; };
 		2D3011B21D774F74002AE8FA /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3011B11D774F74002AE8FA /* MainTabBarController.swift */; };
+		2D3597931D8A4C6D00809EDD /* EvolutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3597921D8A4C6D00809EDD /* EvolutionViewController.swift */; };
 		2D3A0A3F1D65487B0040C218 /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3A0A3E1D65487B0040C218 /* Inventory.swift */; };
 		2D5143A51D5C2A2A00891AB2 /* PokemonCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5143A41D5C2A2A00891AB2 /* PokemonCollectionViewController.swift */; };
 		2D5143A91D5C2A8E00891AB2 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5143A81D5C2A8E00891AB2 /* Pokemon.swift */; };
@@ -243,6 +244,8 @@
 		2DACADDC1D79FCDA002630BE /* NSDate+timeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC2E03A1D6E88AD000D9D64 /* NSDate+timeAgo.swift */; };
 		2DACADDE1D7A19B9002630BE /* UILabel+liveText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DACADDD1D7A19B9002630BE /* UILabel+liveText.swift */; };
 		2DACADDF1D7A19C6002630BE /* UILabel+liveText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DACADDD1D7A19B9002630BE /* UILabel+liveText.swift */; };
+		2DB0F3011D90CDF2004D12CF /* PokemonEvolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB0F3001D90CDF2004D12CF /* PokemonEvolutions.swift */; };
+		2DB0F3031D90CE31004D12CF /* PokemonEvolutionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB0F3021D90CE31004D12CF /* PokemonEvolutionsTests.swift */; };
 		2DC2E0371D6E7D2B000D9D64 /* NSLayoutConstraint+multiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC2E0361D6E7D2B000D9D64 /* NSLayoutConstraint+multiplier.swift */; };
 		2DC2E0391D6E853D000D9D64 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC2E0381D6E853D000D9D64 /* ColorUtils.swift */; };
 		2DC2E03B1D6E88AD000D9D64 /* NSDate+timeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC2E03A1D6E88AD000D9D64 /* NSDate+timeAgo.swift */; };
@@ -479,6 +482,7 @@
 		2D3011A71D76622F002AE8FA /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../../../Library/Developer/Xcode/DerivedData/PokeIV-fwajnixqrxxwdtcwbyqtfchvduun/Build/Products/Debug-iphonesimulator/RealmSwift.framework"; sourceTree = "<group>"; };
 		2D3011AF1D766891002AE8FA /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		2D3011B11D774F74002AE8FA /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		2D3597921D8A4C6D00809EDD /* EvolutionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvolutionViewController.swift; sourceTree = "<group>"; };
 		2D3A0A3E1D65487B0040C218 /* Inventory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inventory.swift; sourceTree = "<group>"; };
 		2D5143A41D5C2A2A00891AB2 /* PokemonCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonCollectionViewController.swift; sourceTree = "<group>"; };
 		2D5143A81D5C2A8E00891AB2 /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
@@ -490,6 +494,8 @@
 		2D8BCE961D6BD23A00B8722E /* Candy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candy.swift; sourceTree = "<group>"; };
 		2D92F8401D5D246E00A9E42F /* PokemonCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonCollectionViewCell.swift; sourceTree = "<group>"; };
 		2DACADDD1D7A19B9002630BE /* UILabel+liveText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+liveText.swift"; sourceTree = "<group>"; };
+		2DB0F3001D90CDF2004D12CF /* PokemonEvolutions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonEvolutions.swift; sourceTree = "<group>"; };
+		2DB0F3021D90CE31004D12CF /* PokemonEvolutionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonEvolutionsTests.swift; sourceTree = "<group>"; };
 		2DC2E0361D6E7D2B000D9D64 /* NSLayoutConstraint+multiplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+multiplier.swift"; sourceTree = "<group>"; };
 		2DC2E0381D6E853D000D9D64 /* ColorUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		2DC2E03A1D6E88AD000D9D64 /* NSDate+timeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+timeAgo.swift"; sourceTree = "<group>"; };
@@ -777,6 +783,9 @@
 				2DCC68FC1D5AF45E00C83E8C /* Main.storyboard */,
 				2D3011B11D774F74002AE8FA /* MainTabBarController.swift */,
 				2D3011AF1D766891002AE8FA /* AccountsViewController.swift */,
+				2D3597921D8A4C6D00809EDD /* EvolutionViewController.swift */,
+				2DB0F3001D90CDF2004D12CF /* PokemonEvolutions.swift */,
+				2DB0F3021D90CE31004D12CF /* PokemonEvolutionsTests.swift */,
 				2D5143A41D5C2A2A00891AB2 /* PokemonCollectionViewController.swift */,
 				2D212EAD1D6F9CAD0098E17A /* PokemonCollectionDataSource.swift */,
 				2D92F8401D5D246E00A9E42F /* PokemonCollectionViewCell.swift */,
@@ -1524,7 +1533,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D2643EE1D6A359300BA6F26 /* PokemonCollectionViewHeader.swift in Sources */,
+				2DB0F3031D90CE31004D12CF /* PokemonEvolutionsTests.swift in Sources */,
 				2D245D171D6369FF00C4CCC1 /* GoApi.swift in Sources */,
+				2D3597931D8A4C6D00809EDD /* EvolutionViewController.swift in Sources */,
 				2D3011B21D774F74002AE8FA /* MainTabBarController.swift in Sources */,
 				2D8BCE951D6BAE0B00B8722E /* EnumUtils.swift in Sources */,
 				2DC2E0371D6E7D2B000D9D64 /* NSLayoutConstraint+multiplier.swift in Sources */,
@@ -1533,6 +1544,7 @@
 				2D3A0A3F1D65487B0040C218 /* Inventory.swift in Sources */,
 				2D245D151D6360AC00C4CCC1 /* AuthenticationService.swift in Sources */,
 				2D92F8411D5D246E00A9E42F /* PokemonCollectionViewCell.swift in Sources */,
+				2DB0F3011D90CDF2004D12CF /* PokemonEvolutions.swift in Sources */,
 				2DC2E03B1D6E88AD000D9D64 /* NSDate+timeAgo.swift in Sources */,
 				2DC2E0391D6E853D000D9D64 /* ColorUtils.swift in Sources */,
 				2D11810B1D6CF6530087F143 /* PokemonDetailsViewController.swift in Sources */,
